@@ -40,22 +40,23 @@ re=createSprite(windowWidth/2,windowHeight/2)
 re.visible=false
 re.addImage(restartImg)
 for(i=1;i<=health;i+=1){
-    h=createSprite(windowWidth-50*i,100)
-    h.addImage(heartImg)
-    h.scale=.05
-    healthgrp.push(h)
-    
+  h=createSprite(windowWidth-50*i,100)
+  h.addImage(heartImg)
+  h.scale=.05
+  healthgrp.push(h)
+  
 }
 //creating rules
 }
 
 function draw() {//creating the keybinds
-    if (gamestate=="play"){
+    if (gamestate=="play")
+    {
       if(keyDown("space")&&mario.velocityY==0){mario.velocityY=-15;
          jumpsound.play()}
         
 
-    mario.velocityY+=.5
+     mario.velocityY+=.5
     mario.collide(g)
     if (mario.y<50){
         mario.y=50
@@ -88,6 +89,8 @@ function draw() {//creating the keybinds
         coinsound.play()
     }
     }
+    
+  
     for(i=0;i<npcgroup.length;i+=1){
       temp=npcgroup.get(i)
        if(mario.isTouching(temp))
@@ -117,9 +120,17 @@ function draw() {//creating the keybinds
     npcgroup.setLifetimeEach(-1)
     mario.y=740
     re.visible=true
-    if(mousePressedOver(re)){restartgame();
-     }
+    if(mousePressedOver(re)){
+      if (health>0){
+        restartgame();}
+      
+     
     }
+    }
+    if (health===0) {
+      restart.visible=true;
+    }
+
   drawSprites()
   textSize(30)
   fill("red")
@@ -156,7 +167,7 @@ function createnpc(){b=createSprite(windowWidth,0)
         b.velocityX=-15
         b.lifetime=300
         npcgroup.add(b)  
-}       
+}
 
 function restartgame()
 {gamestate="play"
@@ -166,12 +177,5 @@ function restartgame()
  mario.changeAnimation("run",marioImg)
  Score=0
  re.visible=false
- for(i=1;i<=health;i+=1){
-   h=createSprite(windowWidth-50*i,100)
-   h.addImage(heartImg)
-   h.scale=.05
-   healthgrp.push(h)
-}
-  
-
+ 
 }
